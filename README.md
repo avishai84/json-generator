@@ -1,3 +1,9 @@
+## JSON GENERATOR
+
+Enable to modify a json for React consumption
+
+Project by Avishai
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
