@@ -1,0 +1,16 @@
+.generator-wrapper{
+   header{
+      
+   }
+   .flex-wrapper{
+      display:flex;
+      section{
+         flex-direction: row;
+         margin: 1em;
+      }
+   }
+   .err{
+      color:red;
+      font-weight: bold;
+   }
+}
