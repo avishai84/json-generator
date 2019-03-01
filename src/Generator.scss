@@ -6,7 +6,11 @@
       display:flex;
       section{
          flex-direction: row;
-         margin: 1em;
+         flex-direction: row;
+         margin: 1em 0.5em;
+         padding: 0.5em;
+         width: 50%;
+         outline: 1px solid grey;
       }
    }
    .err{

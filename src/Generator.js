@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import './Generator.scss';
 
+
 class Generator extends Component {
 
     constructor(props){
@@ -27,11 +28,13 @@ class Generator extends Component {
 
       originalValueChanged(event){
         // console.dir(event.target);
+        // Tracking for changed values by users
           // check if value changed in input field by user -
           // and change bg color for visual indication
 
         this.setState({
-            valueChange: (event.target.value !== "" && event.target.attributes['placeholder'].nodeValue !== event.target.value) ? event.target.setAttribute('style','background-color:#0092f61f') : event.target.setAttribute('style','background-color:transparent')
+            valueChange: console.log(event.target)
+            //(event.target.value !== "" && event.target.attributes['placeholder'].nodeValue !== event.target.value) ? event.target.setAttribute('style','background-color:#0092f61f') : event.target.setAttribute('style','background-color:transparent')
         });
       }
 
@@ -42,10 +45,11 @@ class Generator extends Component {
  
         event.preventDefault();
 
-        if(jsonRaw.value !== "" && jsonRaw.value.length > 0 ){
+        if(jsonRaw !== null && jsonRaw.value !== "" && jsonRaw.value.length > 0 ){
           // test if string looks like an object
             const regexStartWith = /^{/gm;
             const regexEndWith = /}$/gm;
+            let itemsBuilder = '';
             if(regexStartWith.test(jsonRaw.value) && regexEndWith.test(jsonRaw.value)){
                 let formdata = JSON.parse(jsonRaw.value); 
                 // test for a real object
@@ -53,26 +57,33 @@ class Generator extends Component {
                     // loop though the object and make it editable
                     
                     for(let key in formdata){
-                        
-                        console.table(key, formdata[key]);
-                        let foo = <label htmlFor={key}>{key}<input className="form-control" id={key} type="text" placeholder={formdata[key]} onBlur={this.originalValueChanged}/></label>;
+         
+                       // console.table(key, formdata[key]);
+                     
+                    
 
-                        this.setState({
-                            populateForm:foo
-                        });
+                        itemsBuilder += `<div><label for=${key}>${key}<input class="form-control" id=${key} type="text" placeholder=${formdata[key]} /></label></div>`;
+
+                  
+                        
+                        //console.table( itemsBuilder);
+
 
                         // level 2
-                        let formdata2 = formdata;
-                        if(key === "data"){
-                            for(let key2 in formdata2[key]){
-                                console.table(key2, formdata2[key][key2]);
-                            }
-                        };
+                        // let formdata2 = formdata;
+                        // if(key === "data"){
+                        //     for(let key2 in formdata2[key]){
+                        //         console.table(key2, formdata2[key][key2]);
+                        //     }
+                        // };
                             // for(let key2 in formdata2[key]){
                             //     console.log(formdata2[key][key2]);
                             // }
                         }
-     
+                        // after state after loop end
+                        this.setState({
+                            populateForm: document.querySelector('.editableForm').innerHTML = itemsBuilder
+                        });
                    // console.log('lets do something with this json ');
                     }
                 }else{
@@ -107,7 +118,11 @@ class Generator extends Component {
         <div className="flex-wrapper">
         <section>
             <h3>Editable Section</h3>
-            <div>{this.state.populateForm}</div>
+            <div className="editableForm">
+            
+            {/* {this.state.populateForm} */}
+            </div>
+       
         </section>
         <section>
             <h3>Preview of origin content</h3>
