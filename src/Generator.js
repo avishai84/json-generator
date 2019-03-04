@@ -16,6 +16,7 @@ class Generator extends Component {
         this.generateInputFromForm =  this.generateInputFromForm.bind(this);
         this.originalValueChanged = this.originalValueChanged.bind(this);
         this.editFormBtn = this.editFormBtn.bind(this);
+        this.generateJsonContent = this.generateJsonContent.bind(this);
     }
     
 
@@ -40,9 +41,13 @@ class Generator extends Component {
       editFormBtn(canEdit){
         
         if(canEdit === 'true'){
-            console.log('CAN EDIT - add btn for saving edited json')
+           
+            // Expossing generate json btn
         this.setState({
-            createBtn : document.querySelector('.generator-wrapper').contains(document.querySelector('.generateForm')) ? 'false' : document.querySelector('.flex-wrapper > section:nth-child(1)').insertAdjacentHTML('afterbegin','<button class="btn btn-warning generateForm">Generate JSON</button>')
+            createBtn : document.querySelector('.generator-wrapper .generateForm').dataset.exposed === 'false' ? document.querySelector('.generator-wrapper .generateForm').dataset.exposed = 'true' + document.querySelector('.generator-wrapper .generateForm').removeAttribute('style') : 'false' 
+
+            // document.querySelector('.generator-wrapper').contains(document.querySelector('.generateForm')) ? 'false' : document.querySelector('.flex-wrapper > section:nth-child(1)').insertAdjacentHTML('afterbegin','<button class="btn btn-warning generateForm">Generate JSON</button>')
+           
             })
             }
         }
@@ -97,6 +102,12 @@ class Generator extends Component {
         }
     }
 
+    generateJsonContent(event){
+        console.log(event.target);
+        // when use click append value to all inputs
+        //create FormData and pass all values
+
+    }
 
     componentDidMount(){
         
@@ -119,6 +130,7 @@ class Generator extends Component {
         </main>
         <div className="flex-wrapper">
         <section>
+            <button className="btn btn-warning generateForm" data-exposed="false" style={{"display":"none"}} onClick={this.generateJsonContent}>Generate JSON</button>
             <h3>Editable Section</h3>
             <div className="editableForm">
             
