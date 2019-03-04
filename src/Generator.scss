@@ -11,6 +11,15 @@
          padding: 0.5em;
          width: 50%;
          outline: 1px solid grey;
+         box-shadow: 2px 4px 8px grey;
+         position:relative;
+
+         .generateForm{
+            position: sticky;
+            top:0;
+            margin:1em 0;
+            font-weight: bold;
+         }
       }
    }
    .err{
