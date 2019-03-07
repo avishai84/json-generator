@@ -9,7 +9,12 @@ class Generator extends Component {
         this.state = {
           value:'Nothing to preview',
           populateForm:'empty',
-          valueChange:''
+          valueChange:'',
+          fromFormData:'',
+          dataInitState:'false',
+          rmvdisable: 'disabled',
+          generate: 'Generate JSON'
+         
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -34,7 +39,8 @@ class Generator extends Component {
           // and change bg color for visual indication
 
         this.setState({
-            valueChange: (event.target.value !== "" && event.target.attributes['placeholder'].nodeValue !== event.target.value) ? (event.target.setAttribute('style','background-color:#dc35454a'), this.editFormBtn('true')) : event.target.setAttribute('style','background-color:transparent')
+            valueChange: (event.target.value !== "" && event.target.attributes['placeholder'].nodeValue !== event.target.value) ? (event.target.setAttribute('style','outline: 4px solid #ffc107'), this.editFormBtn('true')) : event.target.setAttribute('style','outline-color: transparent'),
+            ff: console.log('HEEE222E') 
         });
       }
 
@@ -44,11 +50,15 @@ class Generator extends Component {
            
             // Expossing generate json btn
         this.setState({
-            createBtn : document.querySelector('.generator-wrapper .generateForm').dataset.exposed === 'false' ? document.querySelector('.generator-wrapper .generateForm').dataset.exposed = 'true' + document.querySelector('.generator-wrapper .generateForm').removeAttribute('style') : 'false' 
+            dataInitState : 'true',
+            rmvdisable: '',
+            generate: 'Generating....',
 
-            // document.querySelector('.generator-wrapper').contains(document.querySelector('.generateForm')) ? 'false' : document.querySelector('.flex-wrapper > section:nth-child(1)').insertAdjacentHTML('afterbegin','<button class="btn btn-warning generateForm">Generate JSON</button>')
-           
-            })
+            // createBtn : document.querySelector('.generator-wrapper .theNewForm .generateForm').dataset.exposed === 'false' ? document.querySelector('.generator-wrapper .theNewForm .generateForm').dataset.exposed = 'true' + document.querySelector('.generator-wrapper .theNewForm .generateForm').removeAttribute('style') : 'false'
+
+            ff: console.log('HEEEE') 
+
+                })
             }
         }
 
@@ -61,9 +71,10 @@ class Generator extends Component {
 
         if(jsonRaw !== null && jsonRaw.value !== "" && jsonRaw.value.length > 0 ){
           // test if string looks like an object
+          // create the form object and submit button
             const regexStartWith = /^{/gm;
             const regexEndWith = /}$/gm;
-            let itemsBuilder = ' <form class="theNewForm" name="myForm" >';
+            let itemsBuilder = '';
             if(regexStartWith.test(jsonRaw.value) && regexEndWith.test(jsonRaw.value)){
                 let formdata = JSON.parse(jsonRaw.value); 
                 // test for a real object
@@ -85,7 +96,7 @@ class Generator extends Component {
                                 }
                             }
                         }
-                        itemsBuilder += '</form>';
+                        // itemsBuilder += '</form>';
                         // after state after loop end
                         this.setState({
                             populateForm: document.querySelector('.editableForm').innerHTML = itemsBuilder,
@@ -103,15 +114,30 @@ class Generator extends Component {
     }
 
     generateJsonContent(event){
-        console.log(event.target);
+        event.preventDefault();
+        console.log(event.name);
+        console.log('appending value to each input inside the form element');
+  
         // when use click append value to all inputs
         //create FormData and pass all values
+        this.setState({
+           
+         updateValueToInput: document.querySelectorAll('.editableForm .theNewForm input').forEach((item) => {
+                if(item.value === ""){
+                    item.value = item.attributes['placeholder'].nodeValue;  
+                }
+         }),
+         a: document.querySelector('.editableForm .theNewForm'),
+         b: console.log(this.a)
+        //fromFormData: new FormData(document.querySelector('.editableForm .theNewForm'))
+       // console.log(fromFormData); 
+        });
+     
 
     }
-
-    componentDidMount(){
+    // componentDidMount(){
         
-    }
+    // }
 
   render() {
     return (
@@ -130,13 +156,17 @@ class Generator extends Component {
         </main>
         <div className="flex-wrapper">
         <section>
-            <button className="btn btn-warning generateForm" data-exposed="false" style={{"display":"none"}} onClick={this.generateJsonContent}>Generate JSON</button>
-            <h3>Editable Section</h3>
-            <div className="editableForm">
-            
-            {/* {this.state.populateForm} */}
-            </div>
-       
+            <form className="theNewForm" name="myForm" onSubmit={this.generateJsonContent} >
+          
+                <h3>Editable Section</h3>
+                <div className="editableForm">
+                {/* {this.state.rmvdisable} */}
+                {/* data-exposed={this.state.createBtn}  */}
+                {/* {this.state.populateForm} */}
+                </div>
+
+                <input rmvdisable={this.state.rmvdisable} className="btn btn-warning generateForm" data-exposed={this.state.dataInitState} value={this.state.generate} type="submit"/>
+            </form>
         </section>
         <section>
             <h3>Preview of origin content</h3>
