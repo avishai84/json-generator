@@ -13,7 +13,8 @@ class Generator extends Component {
           fromFormData:'',
           dataInitState:'false',
           rmvdisable: 'disabled',
-          generate: 'Generate JSON'
+          generate: 'Generate JSON',
+          formdata:''
          
         };
 
@@ -80,29 +81,32 @@ class Generator extends Component {
                 // test for a real object
                 if(typeof formdata === 'object' && typeof formdata !== 'string'){
                     // loop though the object and make it editable
-                    
-                    for(let key in formdata){
+                    this.setState({
+                        populateForm: 'readyForm',
+                        formdata:formdata
+                    });
+                    // for(let key in formdata){
 
-                        increament = increament+1;
+                    //     increament = increament+1;
 
-                        itemsBuilder += `<div><label for=${key}${increament}>${key}<input class="form-control" id=${key}${increament} type="text" placeholder=${formdata[key]} /></label></div>`;
+                    //     itemsBuilder += `<div><label for=${key}${increament}>${key}<input class="form-control" id=${key}${increament} type="text" placeholder=${formdata[key]} /></label></div>`;
 
-                        // level 2
-                         let formdata2 = formdata;
-                            if(key === "data"){
-                                for(let key2 in formdata2[key]){
-                                    itemsBuilder += `<div><label for=${key2}>${key2}<input class="form-control" id=${key2} type="text" placeholder=${formdata2[key][key2]} /></label></div>`;
-                                    console.table(key2, formdata2[key][key2]);
-                                }
-                            }
-                        }
+                    //     // level 2
+                    //      let formdata2 = formdata;
+                    //         if(key === "data"){
+                    //             for(let key2 in formdata2[key]){
+                    //                 itemsBuilder += `<div><label for=${key2}>${key2}<input class="form-control" id=${key2} type="text" placeholder=${formdata2[key][key2]} /></label></div>`;
+                    //                 console.table(key2, formdata2[key][key2]);
+                    //             }
+                    //         }
+                    //     }
                         // itemsBuilder += '</form>';
                         // after state after loop end
-                        this.setState({
-                            populateForm: document.querySelector('.editableForm').innerHTML = itemsBuilder,
-                            c: document.querySelectorAll('.editableForm .theNewForm input').forEach( (item) => 
-                                item.addEventListener('blur', this.originalValueChanged))
-                        });
+                        // this.setState({
+                        //     populateForm: document.querySelector('.editableForm').innerHTML = itemsBuilder,
+                        //     c: document.querySelectorAll('.editableForm .theNewForm input').forEach( (item) => 
+                        //         item.addEventListener('blur', this.originalValueChanged))
+                        // });
                    // console.log('lets do something with this json ');
                     }
                 }else{
@@ -120,18 +124,18 @@ class Generator extends Component {
   
         // when use click append value to all inputs
         //create FormData and pass all values
-        this.setState({
+    //     this.setState({
            
-         updateValueToInput: document.querySelectorAll('.editableForm .theNewForm input').forEach((item) => {
-                if(item.value === ""){
-                    item.value = item.attributes['placeholder'].nodeValue;  
-                }
-         }),
-         a: document.querySelector('.editableForm .theNewForm'),
-         b: console.log(this.a)
-        //fromFormData: new FormData(document.querySelector('.editableForm .theNewForm'))
-       // console.log(fromFormData); 
-        });
+    //      updateValueToInput: document.querySelectorAll('.editableForm .theNewForm input').forEach((item) => {
+    //             if(item.value === ""){
+    //                 item.value = item.attributes['placeholder'].nodeValue;  
+    //             }
+    //      }),
+    //      a: document.querySelector('.editableForm .theNewForm'),
+    //      b: console.log(this.a)
+    //     //fromFormData: new FormData(document.querySelector('.editableForm .theNewForm'))
+    //    // console.log(fromFormData); 
+    //     });
      
 
     }
@@ -140,6 +144,15 @@ class Generator extends Component {
     // }
 
   render() {
+
+    if(this.state.populateForm === 'readyForm'){
+          console.log('true');
+          console.log(this.state.formdata);
+        }else{
+             console.log('false');
+            } 
+
+
     return (
       <div className="generator-wrapper">
         <header>
@@ -165,7 +178,7 @@ class Generator extends Component {
                 {/* {this.state.populateForm} */}
                 </div>
 
-                <input rmvdisable={this.state.rmvdisable} className="btn btn-warning generateForm" data-exposed={this.state.dataInitState} value={this.state.generate} type="submit"/>
+                {/* <input {this.state.rmvdisable} className="btn btn-warning generateForm" data-exposed={this.state.dataInitState} value={this.state.generate} type="submit"/> */}
             </form>
         </section>
         <section>
