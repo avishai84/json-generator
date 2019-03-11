@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './Generator.scss';
+import IntakeForm from './IntakeForm';
+
 let increament = 0;
 
 class Generator extends Component {
@@ -80,22 +82,25 @@ class Generator extends Component {
                 // test for a real object
                 if(typeof formdata === 'object' && typeof formdata !== 'string'){
                     // loop though the object and make it editable
-                    
-                    for(let key in formdata){
+                    for (let argument of arguments) {
+                        console.log(argument);
+                        console.log(this.props);
+                      }
+                    // for(let key in formdata){
 
-                        increament = increament+1;
+                    //     increament = increament+1;
 
-                        itemsBuilder += `<div><label for=${key}${increament}>${key}<input class="form-control" id=${key}${increament} type="text" placeholder=${formdata[key]} /></label></div>`;
+                    //     itemsBuilder += `<div><label for=${key}${increament}>${key}<input class="form-control" id=${key}${increament} type="text" placeholder=${formdata[key]} /></label></div>`;
 
-                        // level 2
-                         let formdata2 = formdata;
-                            if(key === "data"){
-                                for(let key2 in formdata2[key]){
-                                    itemsBuilder += `<div><label for=${key2}>${key2}<input class="form-control" id=${key2} type="text" placeholder=${formdata2[key][key2]} /></label></div>`;
-                                    console.table(key2, formdata2[key][key2]);
-                                }
-                            }
-                        }
+                    //     // level 2
+                    //      let formdata2 = formdata;
+                    //         if(key === "data"){
+                    //             for(let key2 in formdata2[key]){
+                    //                 itemsBuilder += `<div><label for=${key2}>${key2}<input class="form-control" id=${key2} type="text" placeholder=${formdata2[key][key2]} /></label></div>`;
+                    //                 console.table(key2, formdata2[key][key2]);
+                    //             }
+                    //         }
+                    //     }
                         // itemsBuilder += '</form>';
                         // after state after loop end
                         this.setState({
@@ -140,12 +145,20 @@ class Generator extends Component {
     // }
 
   render() {
+
+    console.log(this.props);
+
     return (
       <div className="generator-wrapper">
         <header>
             <h2>JSON GENERATOR</h2>
         </header>
-        <main>
+        <IntakeForm/>
+
+
+
+       
+        {/* <main>
             <form className="jsonFormIntake" name="myForm" >
                 <div className="form-group">
                     <label htmlFor="jsonRaw">Enter json:</label>
@@ -153,7 +166,8 @@ class Generator extends Component {
                 </div>
                  <input type="submit" onClick={this.generateInputFromForm} className="btn btn-primary" value="Edit JSON"/> 
             </form>
-        </main>
+        </main> */}
+
         <div className="flex-wrapper">
         <section>
             <form className="theNewForm" name="myForm" onSubmit={this.generateJsonContent} >
