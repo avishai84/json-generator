@@ -15,7 +15,8 @@ class Generator extends Component {
           fromFormData:'',
           dataInitState:'false',
           rmvdisable: 'disabled',
-          generate: 'Generate JSON'
+          generate: 'Generate JSON',
+          pp:'init'
          
         };
 
@@ -24,6 +25,7 @@ class Generator extends Component {
         this.originalValueChanged = this.originalValueChanged.bind(this);
         this.editFormBtn = this.editFormBtn.bind(this);
         this.generateJsonContent = this.generateJsonContent.bind(this);
+        this.formDataPropsChange = this.formDataPropsChange.bind(this);
     }
     
 
@@ -144,16 +146,32 @@ class Generator extends Component {
         
     // }
 
+    formDataPropsChange() {
+ 
+        // getting form value
+        // console.dir(event.target.parentElement.childNodes[1].childNodes[0].children[0].children[1].value);
+
+        // this.setState({
+        //     pp: event.target.parentElement.childNodes[1].childNodes[0].children[0].children[1].value
+        // });
+       
+        this.props.generatejson(this.state.formDataAtt);
+
+    }
+
+
   render() {
-
-    console.log(this.props);
-
+  
     return (
       <div className="generator-wrapper">
         <header>
             <h2>JSON GENERATOR</h2>
         </header>
-        <IntakeForm/>
+        <IntakeForm  />
+        {/* formDataPropsChange={this.state.formDataAtt} */}
+      
+     <button onClick={this.linktoclick} className="btn btn-primary">Edit JSON</button>  
+
 
 
 
