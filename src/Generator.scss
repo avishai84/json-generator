@@ -26,4 +26,11 @@
       color:red;
       font-weight: bold;
    }
+   textarea {
+      display: block;
+      width: 80%;
+      margin: 0.5em auto;
+      box-shadow: 3px 3px 3px grey;
+      background-color: aliceblue;
+  }
 }
