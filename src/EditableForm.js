@@ -161,7 +161,7 @@ class EditableForm extends Component {
 
 
   render() {
- 
+ console.log(this.props.replaceLiveData);
     //console.log(this.props.formDataAtt !== 'undefined' && this.props.replaceLiveData ? this.props.formDataAtt : 'Empty');
 
     if(this.props.formDataAtt !== 'undefined' && this.props.replaceLiveData){
@@ -174,9 +174,11 @@ class EditableForm extends Component {
         <section>
             <form className="theNewForm" name="myForm" onSubmit={this.generateJsonContent} >
                 <h3>Editable Section</h3>
+                {this.props.formDataAtt ? <input className="btn btn-warning generateForm"  value="Generate JSON" type="submit" /> : <input className="btn btn-warning generateForm"  value="Generate JSON" type="submit" disabled />}
                 <div className="editableForm">
                     {this.props.formDataAtt}
                     {this.props.editableElem}
+             
                 </div>
                 {/* <input rmvdisable={this.state.rmvdisable} className="btn btn-warning generateForm" data-exposed={this.state.dataInitState} value={this.state.generate} type="submit"/> */}
             </form>
