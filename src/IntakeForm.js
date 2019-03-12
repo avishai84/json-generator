@@ -33,13 +33,23 @@ class IntakeForm extends Component {
             let itemsBuilder = '';
             if(regexStartWith.test(jsonRaw.value) && regexEndWith.test(jsonRaw.value)){
                 let formdata = JSON.parse(jsonRaw.value); 
+                console.log('formdata');
+                console.log(formdata);
                 // test for a real object
                 if(typeof formdata === 'object' && typeof formdata !== 'string'){
+                    console.dir(formdata);
+                    (function(){
+                     
+                        for (let argument of arguments) {
+                            console.log('arguments');
+                            console.log(argument);
+                            console.log(arguments);
+                            console.log(argument['home']);
+                            itemsBuilder += `<div><label for=${argument['home']}>${argument['home']}<input class="form-control" id=${argument} type="text" placeholder=${argument} /></label></div>`;
+                        }
+                    }(formdata));
+                    console.log(itemsBuilder);
 
-                    for (let argument of arguments) {
-                        console.log(argument);
-                        console.log(this.props);
-                    }
 
                     this.setState({
                         replaceLiveData: true,
@@ -106,13 +116,12 @@ render() {
                     </div>
                     <input type="submit" onClick={this.generateInputFromForm} className="btn btn-primary" value="Edit JSON"/> 
                 </form>
-                {/* <GetMeNewProps formValue={this.props}/>   */}
-                {/*            */}
+  
             </main>
             <div className="generator-wrapper">
                 <div className="flex-wrapper">
            
-            <EditableForm formDataAtt={this.state.formDataAtt}/>
+            <EditableForm formDataAtt={this.state.formDataAtt} replaceLiveData={this.state.replaceLiveData}/>
             <PreviewForm value={this.state.value} formDataAtt={this.state.formDataAtt} replaceLiveData={this.state.replaceLiveData}/>
                 </div>
             </div>
