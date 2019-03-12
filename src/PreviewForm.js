@@ -72,7 +72,7 @@ class PreviewForm extends Component {
 
 
   render() {
-    console.log(this.props);
+   // console.log(this.props);
     return (
     <section>
         <h3>Preview of origin content</h3>

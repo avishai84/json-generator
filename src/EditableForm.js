@@ -162,10 +162,10 @@ class EditableForm extends Component {
 
   render() {
  
-    console.log(this.props.formDataAtt !== 'undefined' && this.props.replaceLiveData ? this.props.formDataAtt : 'Empty');
+    //console.log(this.props.formDataAtt !== 'undefined' && this.props.replaceLiveData ? this.props.formDataAtt : 'Empty');
 
     if(this.props.formDataAtt !== 'undefined' && this.props.replaceLiveData){
-        console.log(this.props.formDataAtt);
+       // console.log(this.props.formDataAtt);
       
     }
 
@@ -176,7 +176,7 @@ class EditableForm extends Component {
                 <h3>Editable Section</h3>
                 <div className="editableForm">
                     {this.props.formDataAtt}
-                  
+                    {this.props.editableElem}
                 </div>
                 {/* <input rmvdisable={this.state.rmvdisable} className="btn btn-warning generateForm" data-exposed={this.state.dataInitState} value={this.state.generate} type="submit"/> */}
             </form>
